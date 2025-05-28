@@ -1,0 +1,40 @@
+[project]
+name = "goit-web-hw-10"
+version = "0.1.0"
+description = "A console assistant bot for managing contacts"
+authors = [
+    {name = "TarnavskyAndrew",email = "87767534+TarnavskyAndrew@users.noreply.github.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = "3.13.2"
+dependencies = [
+    "colorama (>=0.4.6,<0.5.0)",
+    "requests (>=2.32.3,<3.0.0)"
+]
+
+[tool.poetry]
+package-mode = true
+
+packages = [
+    { include = "bot_assistant", from = "src" }
+]
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.2.0"
+mypy = "^1.15.0"
+radon = "^6.0.1"
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+run-bot = "bot_assistant.main:main"
+run-check = "dev_tools.check:main"
+
+[tool.black]
+line-length = 100
+target-version = ["py313"]  
+include = '\.pyi?$'
