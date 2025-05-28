@@ -12,7 +12,7 @@ Here I learn, practice and improve my coding skills.
 *A Python console bot for contact management, with backup support, data validation and multilingual support.*
 
 
-## Possibilities:
+## Possibilities
 
 - Add/delete/edit contacts
 - Search by name and phone number
@@ -47,7 +47,7 @@ Here's what it can do:
 ---
 
 
-## Project structure:
+## Project structure
 
 ```python
 root_folder/
@@ -70,12 +70,12 @@ root_folder/
 ```
 
 
-## Project status:
+## Project status
 
 The project is in progress and will be improved.
 
 
-### Run the bot:
+### Run the bot
 
 `pip install poetry`
 `poetry install`
