@@ -50,21 +50,20 @@ Here's what it can do:
 ## Project structure
 
 ```python
-root_folder/
+root_package/
 │
 ├── pyproject.toml
 ├── poetry.lock
 ├── README.md
 ├── src/
-│ └── bot_assistant/
-│ ├── main.py
-│ ├── models/
-│ ├── views/
-│ ├── handlers/
-│ ├── utils/
-│ └── data/
+│   └── bot_assistant/
+│       ├── main.py
+│       ├── models/
+│       ├── views/
+│       ├── handlers/
+│       ├── utils/
+│       └── data/
 ├── dev_tools/
-│ └── check.py
 ├── tests/
 └── .vscode/
 ```
@@ -83,6 +82,26 @@ The project is in progress and will be improved.
 `poetry run run-bot`
 
 https://github.com/TarnavskyAndrew/goit-web-hw-10
+
+---
+
+### Run with Docker
+
+You can run the bot in an isolated Docker container:
+
+#### 1. Build the Docker image
+```bash
+docker build -t tarnavsky/bot_assistant:v1.0 .
+```
+
+#### 2. Run the bot interactively
+```bash
+docker run -it tarnavsky/bot_assistant:v1.0
+```
+
+> Make sure you're in the root project directory and Docker is installed and running.
+
+https://hub.docker.com/repository/docker/tarnavsky/bot_assistant
 
 
 </details>

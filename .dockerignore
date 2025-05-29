@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+.mypy_cache/
+.pytest_cache/
+.cache/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Poetry artifacts
+*.egg-info/
+
+# Environment variables
+.env
+
+# Git
+.git/
+.gitignore
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+
+# Logs / temporary files
+*.log
+*.tmp
+*temp*
+.DS_Store
+
+# System files
+Thumbs.db
