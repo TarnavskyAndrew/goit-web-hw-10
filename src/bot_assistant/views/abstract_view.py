@@ -15,3 +15,7 @@ class UserView(ABC):  # ABC - базовий клас для визначенн�
     @abstractmethod
     def display_message(self, message):  # Метод для відображення повідомлень користувачу
         pass
+    
+    @abstractmethod
+    def display_welcome_commands(self):
+        pass

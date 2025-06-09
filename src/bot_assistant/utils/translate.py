@@ -1,16 +1,18 @@
 from bot_assistant.utils.config import get_lang
+from bot_assistant.utils.logger import logger
 
 # модуль забезпечує переклади повідомлень бота-помічника, містить словник з перекладами різними мовами.
 
 translations = {
     "EN": {
         "welcome": "Welcome to the assistant bot!",
+        "hint_help_command": "Type 'help' to see what I can do.",
         "goodbye": "Goodbye, have a nice day!",
         "region_prompt": "Enter region code (press Enter for UA): ",
         "add_success": "Contact added.",
         "change_success": "Phone updated.",
         "contact_not_found": "Contact not found.",
-        "empty_input": "Empty input. Type a command like 'hello' or 'add'.",
+        "empty_input": "Empty input. Type a command like 'hello' or 'help'.",
         "help_prompt": "Hello! How can I help you?",
         "enter_a_command": "Enter a command:",
         "show_all_contacts": "Showing all contacts:",
@@ -40,7 +42,6 @@ translations = {
         "region_code_not_found": "Telephone code for region {region} not found.",
         "digits_range_error": "Enter from 10 to 12 digits without the country code (it will be added automatically).",
         "invalid_name": "Name must contain only letters.",
-        "phone_already_exists": "This number already exists for the contact.",
         "invalid_date_format": "Date must be in format DD.MM.YYYY.",
         "empty_name": "Name cannot be empty.",
         "invalid_command_with_help": "Invalid command. Type a command 'help' to see available commands.",
@@ -49,32 +50,35 @@ translations = {
         "restore_failed": "Failed to restore backup.",
         "no_backup": "No backup file found.",
         "no_contacts_yet": "No contacts yet.",
+        "phone_already_exists": "Phone: {phone} already exists for this contact",
         # "language_set": "Language set: {lang}",
-        "help_list": [
-            "hello         — greeting",
-            "add           — add contact",
-            "change        — change phone number",
-            "phone         — show phone(s) for contact",
-            "all           — show all contacts",
-            "add-birthday  — add birthday to contact",
-            "show-birthday — show birthday of contact",
-            "birthdays     — upcoming birthdays this week",
-            "delete        — delete contact",
-            "help          — show help",
-            "lang          — change language",
-            "exit/close    — exit bot",
-            "restore       — restore backup",
-        ],
         "help_header": "Available commands:",
+        "help_table": """        
+
+hello           — Greeting                 | hello
+add             — Add a contact            | add <name> <phone>
+change          — Change phone             | change <name> <old> <new>
+phone           — Show contact phones      | phone <name>
+all             — Show all contacts        | all
+add-birthday    — Add birthday             | add-birthday <name> <DD.MM.YYYY>
+show-birthday   — Show birthday            | show-birthday <name>
+birthdays       — Birthdays this week      | birthdays
+delete          — Delete contact           | delete <name>
+help            — List commands            | help
+lang            — Change language          | lang
+exit / close    — Exit the assistant       | exit / close
+restore         — Restore backup           | restore
+    """
     },
     "UA": {
         "welcome": "Ласкаво просимо до бота-помічника!",
+        "hint_help_command": "Введіть «help», щоб дізнатися, що я можу зробити.",
         "goodbye": "До побачення! Гарного дня!",
         "region_prompt": "Введіть код країни (натисніть Enter для UA): ",
         "add_success": "Контакт додано.",
         "change_success": "Номер оновлено.",
         "contact_not_found": "Контакт не знайдено.",
-        "empty_input": "Порожній ввід. Введіть команду, наприклад 'hello' або 'add'.",
+        "empty_input": "Порожній ввід. Введіть команду, наприклад 'hello' або 'help'.",
         "help_prompt": "Привіт! Чим можу допомогти?",
         "enter_a_command": "Введіть команду:",
         "show_all_contacts": "Показ усіх контактів:",
@@ -104,7 +108,6 @@ translations = {
         "region_code_not_found": "Телефонний код для регіону {region} не знайдено.",
         "digits_range_error": "Введіть від 10 до 12 цифр без коду країни (він додасться автоматично).",
         "invalid_name": "Ім’я повинно містити лише літери.",
-        "phone_already_exists": "Такий номер вже існує для цього контакту.",
         "invalid_date_format": "Дата повинна бути у форматі DD.MM.YYYY.",
         "empty_name": "Ім’я не може бути порожнім.",
         "invalid_command_with_help": "Невідома команда. Введіть команду 'help', щоб побачити доступні команди.",
@@ -113,29 +116,36 @@ translations = {
         "restore_failed": "Не вдалося відновити резервну копію.",
         "no_backup": "Файл резервної копії не знайдено.",
         "no_contacts_yet": "Поки що немає контактів.",
-        "help_list": [
-            "hello         — привітання",
-            "add           — додати контакт",
-            "change        — змінити номер",
-            "phone         — показати номери контакту",
-            "all           — всі контакти",
-            "add-birthday  — додати день народження",
-            "show-birthday — показати день народження",
-            "birthdays     — дні народження цього тижня",
-            "delete        — видалити контакт",
-            "help          — список команд",
-            "lang          — змінити мову",
-            "exit/close    — вихід з бота",
-            "restore       — відновити резервну копію",
-        ],
+        "phone_already_exists": "Телефон: {phone} вже існує для цього контакту",        
         "help_header": "Доступні команди:",
+        "help_table": """
+            
+hello           — Привітання                    | hello
+add             — Додати контакт                | add <ім'я> <телефон>
+change          — Змінити номер                 | change <ім'я> <старий> <новий>
+phone           — Показати номери контакту      | phone <ім'я>
+all             — Всі контакти                  | all
+add-birthday    — Додати день народження        | add-birthday <ім'я> <ДД.ММ.РРРР>
+show-birthday   — Показати день народження      | show-birthday <ім'я>
+birthdays       — Дні народження цього тижня    | birthdays
+delete          — Видалити контакт              | delete <ім'я>
+help            — Список команд                 | help
+lang            — Змінити мову                  | lang
+exit / close    — Вихід з бота                  | exit / close
+restore         — Відновити резервну копію      | restore
+    """
     },
 }
 
 
 def translate(key: str) -> str | list:
+    # logger.debug(f"Called translate with args: {key}")
+    logger.debug("translate called with key: %s", key)
+
     lang = get_lang()
-    return translations.get(lang, {}).get(key, key)
+    result = translations.get(lang, {}).get(key, key)
+    logger.debug("translate result for lang %s and key %s: %s", lang, key, result)
+    return result
 
 
 # print(translate("language_set").format(lang=get_lang()))

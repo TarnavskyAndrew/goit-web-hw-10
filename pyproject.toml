@@ -1,5 +1,5 @@
 [project]
-name = "goit-web-hw-10"
+name = "bot_assistant"
 version = "0.1.0"
 description = "A console assistant bot for managing contacts"
 authors = [

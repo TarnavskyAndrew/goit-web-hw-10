@@ -50,22 +50,26 @@ Here's what it can do:
 ## Project structure
 
 ```python
-root_package/
-│
-├── pyproject.toml
-├── poetry.lock
-├── README.md
-├── src/
-│   └── bot_assistant/
-│       ├── main.py
-│       ├── models/
-│       ├── views/
-│       ├── handlers/
-│       ├── utils/
-│       └── data/
-├── dev_tools/
-├── tests/
-└── .vscode/
+└── root_package/
+    ├── pyproject.toml
+    ├── poetry.lock
+    ├── Dockerfile/
+    ├── README.md
+    ├── src/
+    │   └── bot_assistant/
+    │       ├── main.py
+    │       ├── models/
+    │       ├── views/
+    │       ├── handlers/
+    │       ├── utils/
+    │       └── data/
+    ├── tests/
+    ├── dev_tools/
+    ├── logs/
+    ├── .vscode/
+    ├── .dockerignore
+    ├── .gitignore
+    └── bot_diagram.svg/
 ```
 
 
@@ -81,7 +85,7 @@ The project is in progress and will be improved.
 `poetry shell`
 `poetry run run-bot`
 
-https://github.com/TarnavskyAndrew/goit-web-hw-10
+https://github.com/TarnavskyAndrew/bot_assistant
 
 ---
 
@@ -91,17 +95,18 @@ You can run the bot in an isolated Docker container:
 
 #### 1. Build the Docker image
 ```bash
-docker build -t tarnavsky/bot_assistant:v1.0 .
+docker build -t tarnavsky/bot_assistant:v1.1 .
 ```
 
 #### 2. Run the bot interactively
 ```bash
-docker run -it tarnavsky/bot_assistant:v1.0
+docker run -it tarnavsky/bot_assistant:v1.1
 ```
 
 > Make sure you're in the root project directory and Docker is installed and running.
 
 https://hub.docker.com/repository/docker/tarnavsky/bot_assistant
+
 
 
 </details>

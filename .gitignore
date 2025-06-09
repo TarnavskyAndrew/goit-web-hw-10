@@ -3,6 +3,10 @@
 *.tmp
 *temp*
 
+#log files
+*.log
+*.logs
+
 # Poetry
 .poetry/
 .venv/

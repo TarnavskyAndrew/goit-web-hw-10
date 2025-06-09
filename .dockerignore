@@ -30,6 +30,7 @@ venv/
 
 # Logs / temporary files
 *.log
+*.logs
 *.tmp
 *temp*
 .DS_Store

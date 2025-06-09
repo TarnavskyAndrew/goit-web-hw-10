@@ -1,4 +1,5 @@
 from colorama import Fore
+from bot_assistant.utils.logger import setup_logger, logger
 from bot_assistant.models.address_book import AddressBook
 from bot_assistant.views.console_view import ConsoleView
 from bot_assistant.utils.lang import choose_language
@@ -20,7 +21,7 @@ from bot_assistant.handlers.commands import (
 # poetry run run-bot - запуск через консоль
 
 
-# Функція обробляє ввід користувача, розділяючи його на команду та аргументи..
+# Функція обробляє ввід користувача, розділяючи його на команду та аргументи..````
 def parse_input(user_input):
     parts = user_input.strip().split()
 
@@ -31,16 +32,21 @@ def parse_input(user_input):
 
 
 def main():
+    setup_logger()
+    logger.info("Bot Assistant started")
+    
     view = ConsoleView()
+    # view.display_welcome_commands()
+    view.display_message(f"{Fore.GREEN}{translate('welcome')}{Fore.RESET}")
 
     choose_language()
     # view.display_message(translate("language_set"))
 
     book = AddressBook.load_data()
 
-    view.display_message(f"{Fore.GREEN}{translate('welcome')}{Fore.RESET}")
-
     was_invalid_once = False
+    
+    view.display_message(f" {translate('hint_help_command')}")
 
     while True:
         user_input = input((f"{Fore.YELLOW}> {Fore.RESET}{translate('enter_a_command')}"))

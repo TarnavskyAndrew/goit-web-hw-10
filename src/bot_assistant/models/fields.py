@@ -1,6 +1,7 @@
-from datetime import datetime
 from bot_assistant.utils.phone_utils import load_phone_codes
 from bot_assistant.utils.translate import translate
+from bot_assistant.utils.logger import logger
+from datetime import datetime
 
 
 # 1. Базовий клас для всіх полів запису
@@ -21,6 +22,7 @@ class Name(Fields):
 class Phone:
     def __init__(self, phone, region="UA"):
         self.region = region.upper()
+        logger.debug("Initializing Phone with number: %s and region: %s", phone, self.region)
         self.value = self.format_phone(phone)
 
     def format_phone(self, phone):
@@ -35,9 +37,11 @@ class Phone:
             return self.format_international(user_digits, phone_codes)
 
     def format_ukrainian(self, user_digits):  # форматування номера телефону для України
+        logger.debug("Formatting Ukrainian phone number: %s", user_digits)
         if len(user_digits) == 10 and user_digits.startswith("0"):
             user_digits = user_digits[1:]
         elif len(user_digits) != 9:
+            logger.warning("Invalid Ukrainian number format: %s", user_digits)
             raise ValueError(translate("invalid_ukrainian_number"))
 
         code = "+380"
@@ -46,14 +50,13 @@ class Phone:
 
         return f"{code}({operator}){rest[:3]}-{rest[3:5]}-{rest[5:]}"  # +380(67)123-45-67
 
-    # Якщо регіон - інша країна
+    # Якщо регіон - форматування номера телефону для інших країн:
 
-    def format_international(
-        self, user_digits, phone_codes
-    ):  # форматування номера телефону для інших країн
+    def format_international(self, user_digits, phone_codes):  
+        logger.debug("Formatting international phone: %s", user_digits)
         code = phone_codes.get(self.region, "")
-        if not code:
-            # raise ValueError(f"Telephone code for region {self.region} not found.")
+        if not code:            
+            logger.error("Phone code not found for region: %s", self.region)
             raise ValueError(translate("region_code_not_found").format(region=self.region))
 
         # Стандарт ITU-T E.164: 10–15 цифр (включачи код країни)
@@ -101,6 +104,8 @@ class Birthday(Fields):
     def __init__(self, value):
         try:
             datetime.strptime(value, "%d.%m.%Y")
+            logger.debug("Parsed birthday: %s", value)
             super().__init__(value)
         except ValueError:
+            logger.error("Invalid birthday format: %s", value)
             raise ValueError("Invalid date format. Use DD.MM.YYYY")
